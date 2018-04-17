@@ -1,0 +1,44 @@
+● user registration
+    http:my.host/tcase/api/v1/users/
+        POST:
+            {
+                "username": "",
+                "password": "",
+                "email": "",
+                "is_staff": false
+            }
+
+● login to the user's system
+    http:my.host/tcase/api/v1/api-auth/login/
+        POST:
+            {
+                "username": "",
+                "password": ""
+            }
+
+● creating a message
+    http:my.host/tcase/api/v1/posts/
+        POST:
+            {
+                "author": null,
+                "text": ""
+            }
+
+● liked the post
+    http:my.host/tcase/api/v1/likes/
+        POST:
+            {
+                "liker": null,
+                "post": null,
+                "like": true
+            }
+
+● I did not like the message
+    http:my.host/tcase/api/v1/likes/
+        POST:
+            {
+                "liker": null,
+                "post": null,
+                "like": false
+            }
+...
