@@ -1,3 +1,3 @@
-number_of_users = 15
+number_of_users = 5
 max_posts_per_user = 10
-max_likes_per_user = 5
+max_likes_per_user = 7

@@ -6,6 +6,7 @@ from ..models import Like, Post, User
 
 
 class LikeSerializer(serializers.ModelSerializer):
+    liker = serializers.HiddenField(default=serializers.CurrentUserDefault())
 
     class Meta:
         model = Like
@@ -25,6 +26,7 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             'url',
+            'pk',
             'author',
             'text',
             # 'created_at',

@@ -46,6 +46,47 @@ def many_users(count):
         count = many_posts(username, password, config.max_posts_per_user)
         print(username+' create '+str(count)+' posts')
 
-print(config.number_of_users)
-many_users(config.number_of_users)
 
+def like(post, token):
+    lod = random.randint(0, 1)
+    r = requests.post('http://localhost:8000/tcase/api/v1/likes/',
+                      headers={'Authorization': 'JWT ' + token},
+                      data={'post': post,
+                            'like': lod}
+    )
+    r.close()
+    return r.ok, lod
+
+
+def list_posts_id():
+    rez = []
+    for i in requests.get('http://localhost:8000/tcase/api/v1/posts/').json():
+        rez.append(i.get('pk'))
+    return rez
+
+
+def many_likes(username, password):
+    token = get_token(username, password)
+    clike = 0
+    cdlike = 0
+    mylist = random.sample(list_posts_id(), config.max_likes_per_user)
+    for n in mylist:
+        ok, lod = like(n, token)
+        if lod:
+            clike += 1
+        else:
+            cdlike += 1
+    return clike, cdlike
+
+
+def many_likes_users(count):
+    for n in range(count):
+        username = 'user'+str(n)
+        password = 'pass'+str(n)
+        clike, cdlike = many_likes(username, password)
+        print(username+' like '+str(clike)+' posts and dislike ' + str(cdlike))
+
+
+# print(config.number_of_users)
+many_users(config.number_of_users)
+many_likes_users(config.number_of_users)
