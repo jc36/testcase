@@ -1,5 +1,5 @@
 from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, AllowAny
 
 from ..models import Post, Like, User
 from .serializers import PostSerializer, LikeSerializer, UserSerializer
@@ -20,5 +20,5 @@ class LikeViewSet(viewsets.ModelViewSet):
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (IsAuthenticatedOrReadOnly, )
+    permission_classes = (AllowAny, )
 

@@ -28,4 +28,3 @@
 #         fans = services.get_fans(obj)
 #         serializer = LikeSerializer(fans, many=True)
 #         return Response(serializer.data)
-#

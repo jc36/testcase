@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from rest_framework.fields import CurrentUserDefault
 
 from tcase import services
 from ..models import Like, Post, User
@@ -17,7 +18,8 @@ class LikeSerializer(serializers.ModelSerializer):
 
 
 class PostSerializer(serializers.ModelSerializer):
-    is_fan = serializers.SerializerMethodField()
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    # is_fan = serializers.Serialize    rMethodField()
 
     class Meta:
         model = Post
@@ -25,16 +27,16 @@ class PostSerializer(serializers.ModelSerializer):
             'url',
             'author',
             'text',
-            'created_at',
-            'updated_at',
-            'is_fan'
+            # 'created_at',
+            # 'updated_at',
+            # 'is_fan'
         )
 
-    def get_is_fan(self, obj) -> bool:
-        """Проверяет, лайкнул ли `request.user` твит (`obj`).
-        """
-        user = self.context.get('request').user
-        return services.is_fan(user, obj)
+    # def get_is_fan(self, obj) -> bool:
+    #     """Проверяет, лайкнул ли `request.user` твит (`obj`).
+    #     """
+    #     user = self.context.get('request').user
+    #     return services.is_fan(user, obj)
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -47,7 +49,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
             'username',
             'password',
             'email',
-            'is_staff'
+            # 'is_staff'
         )
 
     def create(self, validated_data):
