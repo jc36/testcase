@@ -69,7 +69,7 @@ def many_likes(username, password):
     token = get_token(username, password)
     clike = 0
     cdlike = 0
-    mylist = random.sample(list_posts_id(), config.max_likes_per_user)
+    mylist = random.sample(list_posts_id(), random.randint(2, config.max_likes_per_user))
     for n in mylist:
         ok, lod = like(n, token)
         if lod:
